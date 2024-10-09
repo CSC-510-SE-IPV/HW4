@@ -1,0 +1,1 @@
+grep -l "sample" dataset1/* | xargs -I {} sh -c 'grep -o "CSC510" {} | wc -l | awk "$1 >= 3 {print FILENAME}" FILENAME={}'
