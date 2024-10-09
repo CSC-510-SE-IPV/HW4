@@ -1,2 +1,2 @@
 #!/bin/bash
-grep -l "sample" dataset1/* | xargs -I {} sh -c 'if [ $(grep -o "CSC510" {} | wc -l) -ge 3 ]; then echo "{} $(grep -o "CSC510" {} | wc -l) $(wc -c < {})"; fi' | sort -k2,2nr -k3,3nr | awk '{gsub("file_", "filtered_", $1); print $1}'
+grep -l "sample" dataset1/* | xargs -I {} sh -c 'if [ $(grep -o "CSC510" {} | wc -l) -ge 3 ]; then echo "{} $(grep -o "CSC510" {} | wc -l) $(wc -c < {})"; fi' | gawk '{print $1, $2, $3}' | sort -k1,1nr -k2,2nr|sed 's/file_/filtered_/'
