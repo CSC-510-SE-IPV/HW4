@@ -1,2 +1,2 @@
 #!/bin/bash
-grep -l "sample" dataset1/* | xargs -I {} sh -c 'if [ $(grep -o "CSC510" {} | wc -l) -ge 3 ]; then echo "{} $(grep -o "CSC510" {} | wc -l) $(wc -c < {})"; fi' | sort -k2,2nr -k3,3nr | awk '{gsub("file_", "filtered_", $1); print $1}'
+grep -l "sample" dataset1/* | xargs -I {} sh -c 'count=$(grep -o "CSC510" {} | uniq -c | awk "{s+=\$1} END {print s}"); if [ "$count" -ge 3 ]; then echo "$count $(wc -c < {}) {}"; fi' | gawk '{print $1, $2, $3}' | sort -k1,1nr -k2,2nr | gawk '{gsub("file_", "filtered_", $3); print $3}'
