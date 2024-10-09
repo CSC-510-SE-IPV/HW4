@@ -1,1 +1,2 @@
-grep -l "sample" dataset1/* | xargs -I {} sh -c 'grep -o "CSC510" {} | wc -l | awk "$1 >= 3 {print FILENAME}" FILENAME={}'
+#!/bin/bash
+grep -l "sample" dataset1/* | xargs -I {} sh -c 'if [ $(grep -o "CSC510" {} | wc -l) -ge 3 ]; then echo {}; fi'
